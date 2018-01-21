@@ -1,0 +1,2 @@
+RedirectMatch 403 /includes/.*$
+ErrorDocument 404 /~arthur.verdon/quizz/404.php

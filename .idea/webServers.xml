@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e7e2cc3c-fe70-47ff-934f-832e0bfeeedc" name="Pingouin" url="http://pingouin.heig-vd.ch/~arthur.verdon/">
+        <fileTransfer host="pingouin.heig-vd.ch" port="22" rootFolder="/home/EINET/arthur.verdon" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
