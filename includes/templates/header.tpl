@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
+<body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="#">
@@ -24,7 +25,7 @@
             <a class="navbar-item" href="index.php">Home</a>
             <a class="navbar-item" href="list_quizzes.php">Liste des quizzs</a>
             {if isset($smarty.session.username)}
-                <a class="navbar-item" href="#">Gérer les quizz</a>
+                <a class="navbar-item" href="manage_quizzes.php">Gérer les quizz</a>
             {/if}
         </div>
         <div class="navbar-end">
@@ -50,4 +51,3 @@
         </div>
     </div>
 </nav>
-<body>

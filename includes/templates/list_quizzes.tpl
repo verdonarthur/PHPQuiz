@@ -33,7 +33,7 @@
     <div class="container">
         <div class="columns is-multiline quizzesContainer">
             {foreach from=$listQuizzes item=quiz}
-                <div class="column is-one-quarter"
+                <div class="column is-one-third"
                      data-category="{ldelim}{','|implode:$quiz->getAllCategoriesID()}{rdelim}"
                      data-name="{$quiz->name}">
                     <div class="box ">
