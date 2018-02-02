@@ -15,7 +15,7 @@ class CLogin extends Controller {
         if (empty($user) || empty($pswd))
             $loginOk = false;
 
-        if (!($user == "arthur" && $pswd == "arthur"))
+        if (!(User::isUserExist($user) && password_verify($pswd,User::getUserPasswordHash($user))))
             $loginOk = false;
 
         if (!$loginOk)

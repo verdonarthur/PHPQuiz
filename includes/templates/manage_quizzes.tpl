@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="field ">
-                    <input type="button" class="button is-pulled-right addQuizz " value="Ajouter">
+                    <a type="button" class="button is-pulled-right addQuizz " href="add_quiz.php">Ajouter</a>
                 </div>
             </div>
         </form>
@@ -62,8 +62,8 @@
                                 Êtes-vous sûr de vouloir supprimer {$quiz->name} ?
                             </section>
                             <footer class="modal-card-foot">
-                                <button class="button is-danger">oui</button>
-                                <button class="button">non</button>
+                                <button class="button is-danger btnYes">oui</button>
+                                <button class="button btnNo">non</button>
                             </footer>
                         </div>
                     </div>
