@@ -44,7 +44,7 @@
                         <footer class="level">
                             <div class="level-right">
                                 <span class="level-item">
-                                    <a class="button is-primary" href="#">Modifier</a>
+                                    <a class="button is-primary" href="modify_quiz.php?idQuiz={$quiz->id}">Modifier</a>
                                 </span>
                                 <span class="level-item">
                                     <button class="button is-danger btnRemoveQuizz">Supprimer</button>

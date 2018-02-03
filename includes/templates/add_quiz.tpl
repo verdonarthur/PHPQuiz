@@ -33,7 +33,7 @@
         </div>
         <div class="container">
             <div class="columns is-multiline questionsContainer">
-                <div class="column is-3 questionForm">
+                <div class="column is-3 questionFormTPL">
                     <div class="box field">
                         <div class="field-body">
                             <div class="field" style="width:20%">

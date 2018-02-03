@@ -38,7 +38,6 @@ class CQuiz extends Controller {
         $listCategories = Category::getAllCategory();
 
         $this->getTPL()->assign("listCategories", $listCategories);
-        //$this->getTPL()->assign("listQuizzes", $listQuizzes);
         $this->getTPL()->display(TEMPLATESPATH . "add_quiz.tpl");
     }
 
@@ -84,36 +83,88 @@ class CQuiz extends Controller {
 
 
             $db->pdo->commit();
+            $this->showModifyQuiz(Quiz::getById($quizId));
         } catch (Exception $e) {
             $db->pdo->rollBack();
             //TODO : MANAGE ERROR MESSAGE
             echo "Failed: " . $e->getMessage();
             die();
         }
+
     }
 
-    
+    public function showModifyQuiz($quiz) {
+        $listCategories = Category::getAllCategory();
+
+        $this->getTPL()->assign("listCategories", $listCategories);
+        $this->getTPL()->assign("quiz", $quiz);
+        $this->getTPL()->display(TEMPLATESPATH . "modify_quiz.tpl");
+    }
+
+    public function modifyQuiz($quiz, $questions) {
+
+        $db = new DB();
+        try {
+            $db->pdo->beginTransaction();
+
+            $q = $db->pdo->prepare("UPDATE `quiz` SET name=:name, description=:description 
+                                 WHERE id=:quizId");
+            $q->bindParam(":name", $quiz->name, PDO::PARAM_STR, 30);
+            $q->bindParam(":description", $quiz->description, PDO::PARAM_LOB);
+            $q->bindParam(":quizId", $quiz->id, PDO::PARAM_INT);
+            $q->execute();
+
+
+            $db->pdo->exec("DELETE FROM quiz_category WHERE idx_quiz=$quiz->id");
+            $q = $db->pdo->prepare("INSERT INTO `quiz_category` (`idx_category`, `idx_quiz`) 
+                                                            VALUES (:idxCategory, :idxQuiz)");
+
+            foreach ($quiz->categories as $category) {
+                $q->bindParam(":idxCategory", $category->id, PDO::PARAM_INT);
+                $q->bindParam(":idxQuiz", $quiz->id, PDO::PARAM_INT);
+                $q->execute();
+            }
+
+
+            $q = $db->pdo->prepare("INSERT INTO `question` (`numOrder`, `titled`, `option`, `answer`, `idx_quiz`) 
+                                            VALUES (:order, :titled, :option, :answer, :idxQuiz)");
+
+            $q2 = $db->pdo->prepare("UPDATE `question` AS q SET q.numOrder=:order, q.titled=:titled,
+                                                q.option=:option,q.answer=:answer WHERE q.id=:questionID");
+            foreach ($questions as $question) {
+                if ($question->id == null) {
+                    $q->bindParam(":order", $question->numOrder, PDO::PARAM_INT, 5);
+                    $q->bindParam(":titled", $question->titled, PDO::PARAM_STR, 255);
+                    $q->bindParam(":option", $question->option, PDO::PARAM_LOB);
+                    $q->bindParam(":answer", $question->answer, PDO::PARAM_STR, 255);
+                    $q->bindParam(":idxQuiz", $quiz->id, PDO::PARAM_INT);
+                    $q->execute();
+                } else if ($question->idx_quiz == $quiz->id) {
+                    $q2->bindParam(":order", $question->numOrder, PDO::PARAM_INT, 5);
+                    $q2->bindParam(":titled", $question->titled, PDO::PARAM_STR, 255);
+                    $q2->bindParam(":option", $question->option, PDO::PARAM_LOB);
+                    $q2->bindParam(":answer", $question->answer, PDO::PARAM_STR, 255);
+                    $q2->bindParam(":questionID", $question->id, PDO::PARAM_INT);
+                    $q2->execute();
+                }
+            }
+
+            $db->pdo->commit();
+            $this->showModifyQuiz($quiz);
+        } catch (Exception $e) {
+            $db->pdo->rollBack();
+            //TODO : MANAGE ERROR MESSAGE
+            echo "Failed: " . $e->getMessage();
+            die();
+        }
+
+
+    }
 
     public function getQuizzesJSON($nbQuiz, $filter = array()) {
         $listQuizzes = array();
         $listCategories = array();
 
-        for ($i = 0; $i < 6; $i++) {
-            $listCategories[] = new Category($i, "Category " . $i);
-        }
-
-
-        for ($i = 0; $i < 10; $i++) {
-            $rndCategory = rand(0, 5);
-            $rndCategory2 = rand(0, 5);
-
-            $listQuizzes[] = new Quiz($i, "Quiz " . $i, time(),
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id ultrices ligula. Nam pretium odio leo, vitae scelerisque nisl convallis et. 
-                Fusce eu venenatis diam, sit amet hendrerit orci. Suspendisse eget risus pharetra, egestas arcu vel, vehicula enim. 
-                Donec tincidunt vitae dolor vitae venenatis.",
-                array($listCategories[$rndCategory], $listCategories[$rndCategory2])
-            );
-        }
 
         return json_encode($listQuizzes);
     }

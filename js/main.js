@@ -2,7 +2,7 @@ $(function () {
     /**
      * TEMPLATE CLONING
      */
-    var questionForm = $(".questionForm").clone();
+    var questionForm = $(".questionFormTPL").clone();
 
     /**
      * BIND FUNCTIONS ON EVENT
@@ -51,7 +51,10 @@ $(function () {
     }
 
     function addQuestion(){
-        $('.questionsContainer').append(questionForm.clone());
+        var ele = questionForm.clone();
+        ele.removeClass("questionFormTPL");
+        ele.addClass("questionForm");
+        $('.questionsContainer').append(ele);
 
     }
 
