@@ -5,16 +5,16 @@
         <hr>
     </div>
 
-    <form>
+    <form action="add_quiz.php" method="post">
         <div class="container">
             <div class="field is-horizontal">
                 <div class="field-body">
                     <div class="field"><input class="input" type="text" value="" placeholder="Nom" name="quizName">
+                        <textarea class="textarea" placeholder="description" name="quizDescription"></textarea>
                     </div>
                     <div class="field">
-                        <div class="select">
-                            <select class="slctCategory" name="quizCategory">
-                                <option value="-1" selected>Catégorie</option>
+                        <div class="select  is-multiple is-small">
+                            <select class="slctCategory" name="quizCategory[]" size="3" multiple>
                                 {foreach from=$listCategories item=category}
                                     <option value="{$category->id}">
                                         {$category->name}
@@ -23,9 +23,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="field ">
-                        <button type="button" class="button is-pulled-right btnAddQuestion">Ajouter une question
-                        </button>
+                    <div class="field">
+                        <input type="button" class="button btnAddQuestion" value="Ajouter une question">
+                        <input type="submit" class="button is-primary" value="Sauver" >
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                         </div>
                         <hr>
                         <div class="field-body">
-                            <input class="input" type="text" name="answer" placeholder="Réponse">
+                            <input class="input" type="text" name="questionAnswer[]" placeholder="Réponse">
                         </div>
                         <hr>
                         <div class="level level-right">

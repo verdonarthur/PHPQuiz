@@ -23,7 +23,7 @@ class User {
         $db = new DB();
         $result = $db->query("select * from user where username='$username'")->execute()->fetch_obj();
         if(!empty($result)){
-            return $result[0]->id;
+            return (int)$result[0]->id;
 
         }else{return "";}
     }

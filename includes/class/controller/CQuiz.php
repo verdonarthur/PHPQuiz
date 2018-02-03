@@ -14,7 +14,7 @@ class CQuiz extends Controller {
         $listQuizzes = Quiz::getAllQuizzes();
         $listCategories = Category::getAllCategory();
 
-        /*if ($asc)
+        /*if ($asc) TODO: Remake asc/desc sorting
             $listQuizzes
         else*/
 
@@ -34,13 +34,65 @@ class CQuiz extends Controller {
         $this->getTPL()->display(TEMPLATESPATH . "manage_quizzes.tpl");
     }
 
-    public function showAddQuiz(){
+    public function showAddQuiz() {
         $listCategories = Category::getAllCategory();
 
         $this->getTPL()->assign("listCategories", $listCategories);
         //$this->getTPL()->assign("listQuizzes", $listQuizzes);
         $this->getTPL()->display(TEMPLATESPATH . "add_quiz.tpl");
     }
+
+    public function addNewQuiz($nameQuiz, $description, $categories, $questions) {
+        $userId = User::getUserId(Session::get("username"));
+
+        $db = new DB();
+        try {
+            $db->pdo->beginTransaction();
+
+            $q = $db->pdo->prepare("INSERT INTO `quiz` (`name`, `description`, `idx_user`) 
+                                VALUES ( :name, :description, :idxUser)");
+            $q->bindParam(":name", $nameQuiz, PDO::PARAM_STR, 30);
+            $q->bindParam(":description", $description, PDO::PARAM_LOB);
+            $q->bindParam(":idxUser", $userId, PDO::PARAM_INT);
+            $q->execute();
+
+            $quizId = $db->pdo->lastInsertId();
+
+
+            $q = $db->pdo->prepare("INSERT INTO `quiz_category` (`idx_category`, `idx_quiz`) 
+                                                            VALUES (:idxCategory, :idxQuiz)");
+
+            foreach ($categories as $category) {
+                $q->bindParam(":idxCategory", $category->id, PDO::PARAM_INT);
+                $q->bindParam(":idxQuiz", $quizId, PDO::PARAM_INT);
+                $q->execute();
+            }
+
+
+            $q = $db->pdo->prepare("INSERT INTO `question` (`numOrder`, `titled`, `option`, `answer`, `idx_quiz`) 
+                                            VALUES (:order, :titled, :option, :answer, :idxQuiz)");
+
+            foreach ($questions as $question) {
+                $q->bindParam(":order", $question->numOrder, PDO::PARAM_INT, 5);
+                $q->bindParam(":titled", $question->titled, PDO::PARAM_STR, 255);
+                $q->bindParam(":option", $question->option, PDO::PARAM_LOB);
+                $q->bindParam(":answer", $question->answer, PDO::PARAM_STR, 255);
+                $q->bindParam(":idxQuiz", $quizId, PDO::PARAM_INT);
+                $q->execute();
+
+            }
+
+
+            $db->pdo->commit();
+        } catch (Exception $e) {
+            $db->pdo->rollBack();
+            //TODO : MANAGE ERROR MESSAGE
+            echo "Failed: " . $e->getMessage();
+            die();
+        }
+    }
+
+    
 
     public function getQuizzesJSON($nbQuiz, $filter = array()) {
         $listQuizzes = array();

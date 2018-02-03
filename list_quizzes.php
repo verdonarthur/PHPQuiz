@@ -4,6 +4,7 @@
  * @author Verdon Arthur
  */
 
+
 require('bootstraper.php');
 require(CONTROLLERPATH . "CQuiz.php");
 $cquiz = new CQuiz();

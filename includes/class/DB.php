@@ -2,12 +2,12 @@
 
 /**
  * @author Arthur Verdon
- * 
+ *
  */
 
 /**
  * the class who manage the interaction with a mysql database
- * 
+ *
  */
 class DB {
 
@@ -16,27 +16,30 @@ class DB {
     private $password;
     private $database;
     private $driver;
-    private $pdo;
+    public $pdo;
     private $build_request;
     private $result_request;
 
     /**
      * 1) load the conf
-     * 2) connect to DB 
+     * 2) connect to DB
      * @param array $db_conf This array must contain this four param : hostname,
      * username, password and database
      */
     public function __construct($db_conf = array()) {
         $this->build_request = "";
 
-        if($db_conf == array()){
+        if ($db_conf == array()) {
             try {
-                $this->pdo = new PDO(DB_NAME,USERNAME, PASSWORD);
+                $this->pdo = new PDO(DB_NAME, USERNAME, PASSWORD,
+                    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8"));
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             } catch (PDOException $e) {
                 print "Error: " . $e->getMessage() . "<br/>";
                 die();
             }
-        }else {
+        } else {
 
             $this->hostname = $db_conf['hostname'];
             $this->username = $db_conf['username'];
@@ -45,7 +48,8 @@ class DB {
             $this->driver = $db_conf['driver'];
 
             try {
-                $this->pdo = new PDO($this->driver . ':host=' . $this->hostname . ';dbname=' . $this->database, $this->username, $this->password);
+                $this->pdo = new PDO($this->driver . ':host=' . $this->hostname . ';dbname=' . $this->database, $this->username, $this->password,
+                    array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8"));
             } catch (PDOException $e) {
                 print "Error: " . $e->getMessage() . "<br/>";
                 die();
@@ -85,7 +89,7 @@ class DB {
     }
 
     /**
-     * fetch your result in an associative array 
+     * fetch your result in an associative array
      *
      * @return array
      */
@@ -115,13 +119,13 @@ class DB {
     /**
      * fetch your result as object in an array
      *
-     * @param string $class_to_use this param define the name of the class to 
+     * @param string $class_to_use this param define the name of the class to
      * use for the convertion in object. By default the class used is stdClass
      * @return type
      */
     public function fetch_obj($class_to_use = 'stdClass') {
         $result = array();
-        
+
         foreach ($this->result_request->fetchAll(PDO::FETCH_CLASS, $class_to_use) as $row) {
             $result[] = $row;
         }
