@@ -62,7 +62,7 @@
                                 Êtes-vous sûr de vouloir supprimer {$quiz->name} ?
                             </section>
                             <footer class="modal-card-foot">
-                                <button class="button is-danger btnYes">oui</button>
+                                <a class="button is-danger btnYes" href="delete_quiz.php?idQuiz={$quiz->id}">oui</a>
                                 <button class="button btnNo">non</button>
                             </footer>
                         </div>

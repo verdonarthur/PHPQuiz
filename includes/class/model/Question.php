@@ -30,4 +30,15 @@ class Question {
 
         return $questions;
     }
+
+    public static function getById($idQuestion) {
+        $db = new DB();
+        $result = $db->query("SELECT * from question 
+            WHERE question.id=$idQuestion;")->execute()->fetch_obj();
+
+        return new Question($result[0]->id, $result[0]->numOrder, $result[0]->titled,
+            $result[0]->option, $result[0]->answer, $result[0]->idx_quiz);
+    }
+
+
 }

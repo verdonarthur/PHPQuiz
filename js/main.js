@@ -2,7 +2,8 @@ $(function () {
     /**
      * TEMPLATE CLONING
      */
-    var questionForm = $(".questionFormTPL").clone();
+    var questionForm = $(".questionFormTPL").removeClass("questionFormTPL").addClass("questionForm").clone();
+
 
     /**
      * BIND FUNCTIONS ON EVENT
@@ -40,11 +41,11 @@ $(function () {
         var quiz = btnRemoveQuiz.closest(".column.is-6").data();
         var modal = btnRemoveQuiz.closest(".column.is-6").find('.modal');
         modal.addClass('is-active');
-        modal.find('.btnYes').on("click", function () {
+        /*modal.find('.btnYes').on("click", function () {
             modal.removeClass('is-active');
             $(e.target).closest(".column.is-6").remove();
             // TODO : Code for remove from DB
-        });
+        });*/
         modal.find('.btnNo').on("click", function () {
             modal.removeClass('is-active');
         });

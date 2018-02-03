@@ -66,10 +66,10 @@
                             </div>
                             <hr>
                             <div class="level level-right">
-                                <button class="button is-danger is-outlined">
+                                <a class="button is-danger is-outlined" href="delete_question.php?idQuestion={$question->id}">
                                     <span>Delete</span>
                                     <span class="icon is-small"><i class="fas fa-times"></i></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         </div>
                         <hr>
                         <div class="level level-right">
-                            <button class="button is-danger is-outlined">
+                            <button type="button" class="button is-danger is-outlined" onclick="$(this).closest('.questionForm').remove();">
                                 <span>Delete</span>
                                 <span class="icon is-small"><i class="fas fa-times"></i></span>
                             </button>

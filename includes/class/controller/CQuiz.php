@@ -157,8 +157,46 @@ class CQuiz extends Controller {
             echo "Failed: " . $e->getMessage();
             die();
         }
+    }
+
+    public function deleteQuiz($quiz){
+
+        $db = new DB();
+        try {
+            $db->pdo->beginTransaction();
+
+            $db->pdo->exec("DELETE FROM quiz WHERE id=".$quiz->id);
+            $db->pdo->exec("DELETE FROM quiz_category WHERE idx_quiz=".$quiz->id);
+            $db->pdo->exec("DELETE FROM question WHERE idx_quiz=".$quiz->id);
+
+            $db->pdo->commit();
+            $this->showManageQuizzes();
+        }catch (Exception $e){
+            $db->pdo->rollBack();
+            //TODO : MANAGE ERROR MESSAGE
+            echo "Failed: " . $e->getMessage();
+            die();
+        }
 
 
+    }
+
+    public function deleteQuestion($question) {
+        $db = new DB();
+        try {
+            $db->pdo->beginTransaction();
+
+            $db->pdo->exec("DELETE FROM question WHERE id=".$question->id);
+
+            $db->pdo->commit();
+
+            $this->showModifyQuiz(Quiz::getById($question->idx_quiz));
+        }catch (Exception $e){
+            $db->pdo->rollBack();
+            //TODO : MANAGE ERROR MESSAGE
+            echo "Failed: " . $e->getMessage();
+            die();
+        }
     }
 
     public function playQuiz($quiz) {
@@ -174,4 +212,5 @@ class CQuiz extends Controller {
 
         return json_encode($listQuizzes);
     }
+
 }
