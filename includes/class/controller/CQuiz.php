@@ -136,21 +136,21 @@ class CQuiz extends Controller {
                     $q->bindParam(":order", $question->numOrder, PDO::PARAM_INT, 5);
                     $q->bindParam(":titled", $question->titled, PDO::PARAM_STR, 255);
                     $q->bindParam(":option", $question->option, PDO::PARAM_LOB);
-                    $q->bindParam(":answer", $question->answer, PDO::PARAM_STR, 255);
+                    $q->bindParam(":answer", $question->answer, PDO::PARAM_LOB, 255);
                     $q->bindParam(":idxQuiz", $quiz->id, PDO::PARAM_INT);
                     $q->execute();
                 } else if ($question->idx_quiz == $quiz->id) {
                     $q2->bindParam(":order", $question->numOrder, PDO::PARAM_INT, 5);
                     $q2->bindParam(":titled", $question->titled, PDO::PARAM_STR, 255);
                     $q2->bindParam(":option", $question->option, PDO::PARAM_LOB);
-                    $q2->bindParam(":answer", $question->answer, PDO::PARAM_STR, 255);
+                    $q2->bindParam(":answer", $question->answer, PDO::PARAM_LOB, 255);
                     $q2->bindParam(":questionID", $question->id, PDO::PARAM_INT);
                     $q2->execute();
                 }
             }
 
             $db->pdo->commit();
-            $this->showModifyQuiz($quiz);
+            $this->showModifyQuiz(Quiz::getById($quiz->id));
         } catch (Exception $e) {
             $db->pdo->rollBack();
             //TODO : MANAGE ERROR MESSAGE
@@ -159,6 +159,12 @@ class CQuiz extends Controller {
         }
 
 
+    }
+
+    public function playQuiz($quiz) {
+        $this->getTPL()->assign("quiz", $quiz);
+        $this->getTPL()->assign("cquestion", new CQuestion());
+        $this->getTPL()->display("play_quiz.tpl");
     }
 
     public function getQuizzesJSON($nbQuiz, $filter = array()) {

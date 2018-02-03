@@ -49,7 +49,7 @@
                         </p>
                         <footer>
                             <p class="">
-                                <span><a href="#">Play</a></span>
+                                <span><a href="play_quiz.php?idQuiz={$quiz->id}">Play</a></span>
                             </p>
                         </footer>
                     </div>

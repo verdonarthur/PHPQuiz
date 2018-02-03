@@ -15,3 +15,6 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 <script src="js/bulmaBootstrap.js"></script>
 <script src="js/main.js"></script>
+{if strpos($smarty.server.SCRIPT_NAME,  "play_quiz.php") !== false}
+    <script src="js/play_quiz.js"></script>
+{/if}

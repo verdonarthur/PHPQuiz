@@ -1,3 +1,6 @@
 .mainSection{
     min-height: 900px;
 }
+.question{
+    min-height: 500px;
+}

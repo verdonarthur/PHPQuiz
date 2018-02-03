@@ -40,9 +40,10 @@ if (isset($_POST['quizName'])) {
     }
 
     $categories = array();
-    for ($i = 0; $i < count($_POST['quizCategory']); $i++) {
-        $categories[] = new Category($_POST['quizCategory'][$i], "");
-    }
+    if (isset($_POST['quizCategory']))
+        for ($i = 0; $i < count($_POST['quizCategory']); $i++) {
+            $categories[] = new Category($_POST['quizCategory'][$i], "");
+        }
 
     $quiz->name = $_POST['quizName'];
     $quiz->description = $_POST['quizDescription'];
