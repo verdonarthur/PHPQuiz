@@ -15,7 +15,7 @@ class CQuestion extends Controller {
         //print "</pre>";
         $objOption = json_decode($question->option);
 
-
+        $this->getTPL()->assign("youtubeLink", isset($objOption->youtubeLink) ? $objOption->youtubeLink : false);
         $this->getTPL()->assign("options", isset($objOption->options) ? $objOption->options : array());
         $this->getTPL()->assign("isMultiple", isset($objOption->isMultiple) ? $objOption->isMultiple : false);
         $this->getTPL()->assign("question", $question);

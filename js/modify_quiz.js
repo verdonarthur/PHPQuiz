@@ -9,6 +9,7 @@ $(function () {
     $('.btnAddQuestion').click(addQuestion);
     $("textarea[name^=questionOption]").on('focusout', validateJson);
 
+    // credits to https://github.com/dustinboston/validate-json
     function validateJson(e) {
         $(e.target).validateJSON({
             // Compress the result
