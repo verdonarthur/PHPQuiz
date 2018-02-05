@@ -21,7 +21,7 @@
 
                                     {if in_array($category,$quiz->categories)}
                                         <option value="{$category->id}" selected>
-                                    {else}
+                                            {else}
                                         <option value="{$category->id}">
                                     {/if}
 
@@ -55,9 +55,9 @@
                                            name="questionTitled[]" value="{$question->titled}"></div>
                             </div>
                             <hr>
-                            <div class="field-body">
-                            <textarea class="textarea is-small" name="questionOption[]"
-                                      placeholder='{ldelim}"options":[]{rdelim}'>{$question->option}</textarea>
+                            <div class="field">
+                                <textarea class="textarea is-small" name="questionOption[]"
+                                          placeholder='{ldelim}"options":[]{rdelim}'>{$question->option}</textarea>
                             </div>
                             <hr>
                             <div class="field-body">
@@ -66,7 +66,8 @@
                             </div>
                             <hr>
                             <div class="level level-right">
-                                <a class="button is-danger is-outlined" href="delete_question.php?idQuestion={$question->id}">
+                                <a class="button is-danger is-outlined"
+                                   href="delete_question.php?idQuestion={$question->id}">
                                     <span>Delete</span>
                                     <span class="icon is-small"><i class="fas fa-times"></i></span>
                                 </a>
@@ -96,7 +97,8 @@
                         </div>
                         <hr>
                         <div class="level level-right">
-                            <button type="button" class="button is-danger is-outlined" onclick="$(this).closest('.questionForm').remove();">
+                            <button type="button" class="button is-danger is-outlined"
+                                    onclick="$(this).closest('.questionForm').remove();">
                                 <span>Delete</span>
                                 <span class="icon is-small"><i class="fas fa-times"></i></span>
                             </button>

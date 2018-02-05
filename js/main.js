@@ -1,8 +1,4 @@
 $(function () {
-    /**
-     * TEMPLATE CLONING
-     */
-    var questionForm = $(".questionFormTPL").removeClass("questionFormTPL").addClass("questionForm").clone();
 
 
     /**
@@ -11,7 +7,6 @@ $(function () {
     $('.slctCategory').change(filterQuizzes);
     $('.inSearch').keyup(filterQuizzes);
     $('.btnRemoveQuizz').click(removeQuizz);
-    $('.btnAddQuestion').click(addQuestion);
 
 
     /**
@@ -50,14 +45,5 @@ $(function () {
             modal.removeClass('is-active');
         });
     }
-
-    function addQuestion(){
-        var ele = questionForm.clone();
-        ele.removeClass("questionFormTPL");
-        ele.addClass("questionForm");
-        $('.questionsContainer').append(ele);
-
-    }
-
 
 });

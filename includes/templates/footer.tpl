@@ -18,3 +18,7 @@
 {if strpos($smarty.server.SCRIPT_NAME,  "play_quiz.php") !== false}
     <script src="js/play_quiz.js"></script>
 {/if}
+{if strpos($smarty.server.SCRIPT_NAME,  "modify_quiz.php") !== false}
+    <script src="js/jquery.validate-json.js"></script>
+    <script src="js/modify_quiz.js"></script>
+{/if}

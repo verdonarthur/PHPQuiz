@@ -115,4 +115,5 @@ $(function () {
     function getNumberQuestion() {
         return $(".question:last").data('order');
     }
+
 });
