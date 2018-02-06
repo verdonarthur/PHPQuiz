@@ -1,4 +1,5 @@
 var counterQuestion = 1;
+var counterDoneQuestion = 0;
 var actualQuestion;
 var score = 0;
 
@@ -10,47 +11,58 @@ $(function () {
     $("#btnNextQuestion").click(goNextQuestion);
     $("#btnLastQuestion").click(goLastQuestion);
 
+    $('input').change(function () {
+        $(this).closest('.question').mouseleave(correctActualQuestion);
+    });
+
+    $('input[type=radio]').change(correctActualQuestion);
+    $('input[type=text]').blur(correctActualQuestion);
 
     function correctActualQuestion() {
         var inputName = "input[name=questionId" + actualQuestion.data('idquestion') + "]";
         var inputToTest = $(inputName);
 
-        switch (inputToTest.attr('type')) {
-            case 'radio':
-                if (String(actualQuestion.data('answer')) === String($(inputName + ":checked").val())) {
-                    goodAnswer(actualQuestion);
-                } else {
-                    badAnswer(actualQuestion)
-                }
+        if (inputToTest.prop('disabled') != true) {
 
-                break;
+            $(".nbrDoneQuestion").text(++counterDoneQuestion);
 
-            case 'checkbox':
-                var answers = actualQuestion.data('answer').split(",");
-                var valCheckbox = [];
-                $(inputName + ":checked").each(function (i) {
-                    valCheckbox[i] = $(this).val();
-                });
+            switch (inputToTest.attr('type')) {
+                case 'radio':
+                    if (String(actualQuestion.data('answer')) === String($(inputName + ":checked").val())) {
+                        goodAnswer(actualQuestion);
+                    } else {
+                        badAnswer(actualQuestion)
+                    }
 
-                if (JSON.stringify(valCheckbox) === JSON.stringify(answers)) {
+                    break;
 
-                    goodAnswer(actualQuestion);
-                } else {
+                case 'checkbox':
+                    var answers = actualQuestion.data('answer').split(",");
+                    var valCheckbox = [];
+                    $(inputName + ":checked").each(function (i) {
+                        valCheckbox[i] = $(this).val();
+                    });
 
-                    badAnswer(actualQuestion)
-                }
-                break;
+                    if (JSON.stringify(valCheckbox) === JSON.stringify(answers)) {
 
-            case 'text':
-                if (actualQuestion.data('answer') === $(inputName).val()) {
-                    goodAnswer(actualQuestion);
-                } else {
-                    badAnswer(actualQuestion)
-                }
-                break;
+                        goodAnswer(actualQuestion);
+                    } else {
+
+                        badAnswer(actualQuestion)
+                    }
+                    break;
+
+                case 'text':
+                    if (actualQuestion.data('answer') === $(inputName).val()) {
+                        goodAnswer(actualQuestion);
+                    } else {
+                        badAnswer(actualQuestion)
+                    }
+                    break;
+            }
+
+            $(inputName).prop('disabled', true);
         }
-
-        $(inputName).prop('disabled', true);
     }
 
     function goodAnswer(question) {
@@ -78,6 +90,8 @@ $(function () {
                 $('#quizEnded').removeClass('is-active');
             });
         }
+
+        $('#nbrActualQuestion').text(counterQuestion);
     }
 
     function goLastQuestion() {
@@ -90,6 +104,8 @@ $(function () {
         } else {
             $("#btnLastQuestion").prop('disabled', true);
         }
+
+        $('#nbrActualQuestion').text(counterQuestion);
     }
 
     function growUpScore() {

@@ -29,6 +29,13 @@
                 <p class="heading">Score</p>
                 <p class="title score">0</p>
             </div>
+
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Question</p>
+                <p class="title"><span id="nbrActualQuestion">1</span> / {$smarty.foreach.foo.iteration}</p>
+            </div>
         </div>
     </div>
     <div class="section level">
@@ -56,7 +63,9 @@
             <p class="modal-card-title">Bravo vous avez fini {$quiz->name}</p>
         </header>
         <section class="modal-card-body">
-            Votre score est de <span class="score">0</span>
+            Votre score est de <span class="score">0</span><br>
+            Vous avez rempli <span class="nbrDoneQuestion">0</span> question sur {$smarty.foreach.foo.iteration}
+
         </section>
         <footer class="modal-card-foot">
             <button class="button btnWatchAnswer">Continuer le quiz</button>

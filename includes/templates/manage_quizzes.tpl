@@ -1,9 +1,12 @@
 {include file="header.tpl"}
-<section class="section mainSection">
-    <div class="container">
-        <h1 class="title">Liste de vos quizs </h1>
-        <hr>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Liste des quizs de {$smarty.session.username}</h1>
+        </div>
     </div>
+</section>
+<section class="section mainSection">
     <div class="container">
         <form class="list_quizzes_form field is-horizontal">
             <div class="field-body">
@@ -30,27 +33,33 @@
     <div class="container">
         <div class="columns is-multiline quizzesContainer">
             {foreach from=$listQuizzes item=quiz}
-                <div class="column is-6 "
+                <div class="column is-one-third"
                      data-category="{ldelim}{','|implode:$quiz->getAllCategoriesID()}{rdelim}"
                      data-name="{$quiz->name}"
                      data-id="{$quiz->id}">
-                    <div class="box ">
-                        {foreach from=$quiz->getAllCategoriesName() item=nameCategory}
-                            <span class="tag">{$nameCategory}</span>
-                        {/foreach}
-                        <hr>
-                        <p class="title">{$quiz->name}</p>
-                        <p class="subtitle">{$quiz->description}</p>
-                        <footer class="level">
-                            <div class="level-right">
-                                <span class="level-item">
-                                    <a class="button is-primary" href="modify_quiz.php?idQuiz={$quiz->id}">Modifier</a>
-                                </span>
-                                <span class="level-item">
-                                    <button class="button is-danger btnRemoveQuizz">Supprimer</button>
-                                </span>
+                    <div class="box has-text-centered">
+                        <div class="level">
+                            <div class="tags level-item">
+                                {foreach from=$quiz->getAllCategoriesName() item=nameCategory}
+                                    <span class="tag is-info is-rounded">{$nameCategory}</span>
+                                {/foreach}
                             </div>
-                        </footer>
+                        </div>
+
+                        <div class="level">
+                            <div class="level-item"><p class="title">{$quiz->name}</p></div>
+                        </div>
+                        <div class="level">
+                            <div class="level-item"><p class="subtitle">{$quiz->description|truncate:100:"...":true}</p></div>
+                        </div>
+                        <div class="level">
+                                <span class="level-item">
+                                    <a class="button is-outlined is-primary" href="modify_quiz.php?idQuiz={$quiz->id}">Modifier</a>
+                                </span>
+                                <span class="level-item">
+                                    <button class="button is-danger is-outlined btnRemoveQuizz">Supprimer</button>
+                                </span>
+                        </div>
                     </div>
                     <div class="modal">
                         <div class="modal-background"></div>

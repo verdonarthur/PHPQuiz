@@ -17,7 +17,7 @@ $cquiz = new CQuiz();
 
 if (isset($_GET['idQuiz'])) {
     $quiz = Quiz::getById($_GET['idQuiz']);
-    if (User::getUserId(Session::get("username")) == $quiz->idx_user)
+    if (User::getUserId(Session::get("username")) == $quiz->idx_user && !empty($quiz))
         $cquiz->deleteQuiz($quiz);
 
 } else

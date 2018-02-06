@@ -82,10 +82,13 @@ class Quiz {
         return $names;
     }
 
-    public static function getAllQuizzes() {
+    public static function getAllQuizzes($asc = true) {
         $listQuiz = array();
         $db = new DB();
-        $result = $db->query("select * from quiz")->execute()->fetch_obj();
+        if ($asc)
+            $result = $db->query("SELECT * FROM quiz ORDER BY quiz.name ASC")->execute()->fetch_obj();
+        else
+            $result = $db->query("SELECT * FROM quiz ORDER BY quiz.name DESC")->execute()->fetch_obj();
 
         for ($i = 0; $i < count($result); $i++) {
             $listQuiz[] = new Quiz($result[$i]->id, $result[$i]->name,
@@ -98,7 +101,7 @@ class Quiz {
     public static function getAllQuizzesFromUser($idUser) {
         $listQuiz = array();
         $db = new DB();
-        $result = $db->query("select * from quiz WHERE idx_user=$idUser")->execute()->fetch_obj();
+        $result = $db->query("select * from quiz WHERE idx_user=$idUser ORDER BY quiz.name ASC")->execute()->fetch_obj();
 
         for ($i = 0; $i < count($result); $i++) {
             $listQuiz[] = new Quiz($result[$i]->id, $result[$i]->name,
@@ -106,6 +109,14 @@ class Quiz {
         }
 
         return $listQuiz;
+    }
+
+    public function getQuizAuthorName() {
+        $db = new DB();
+        $db = new DB();
+
+        $result = $db->query("select * from user WHERE idx_user=$this->idx_user")->execute()->fetch_obj();
+        return $result[0]->name;
     }
 
 }

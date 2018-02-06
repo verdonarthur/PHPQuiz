@@ -11,7 +11,7 @@ class CQuiz extends Controller {
     }
 
     public function showAllQuizzes($asc) {
-        $listQuizzes = Quiz::getAllQuizzes();
+        $listQuizzes = Quiz::getAllQuizzes($asc);
         $listCategories = Category::getAllCategory();
 
         /*if ($asc) TODO: Remake asc/desc sorting
@@ -50,7 +50,7 @@ class CQuiz extends Controller {
 
             $q = $db->pdo->prepare("INSERT INTO `quiz` (`name`, `description`, `idx_user`) 
                                 VALUES ( :name, :description, :idxUser)");
-            $q->bindParam(":name", $nameQuiz, PDO::PARAM_STR, 30);
+            $q->bindParam(":name", $nameQuiz, PDO::PARAM_STR, 50);
             $q->bindParam(":description", $description, PDO::PARAM_LOB);
             $q->bindParam(":idxUser", $userId, PDO::PARAM_INT);
             $q->execute();
@@ -86,9 +86,8 @@ class CQuiz extends Controller {
             $this->showModifyQuiz(Quiz::getById($quizId));
         } catch (Exception $e) {
             $db->pdo->rollBack();
-            //TODO : MANAGE ERROR MESSAGE
-            echo "Failed: " . $e->getMessage();
-            die();
+            $this->getTPL()->assign("error", $e->getMessage());
+            $this->getTPL()->display("error.tpl");
         }
 
     }
@@ -153,9 +152,8 @@ class CQuiz extends Controller {
             $this->showModifyQuiz(Quiz::getById($quiz->id));
         } catch (Exception $e) {
             $db->pdo->rollBack();
-            //TODO : MANAGE ERROR MESSAGE
-            echo "Failed: " . $e->getMessage();
-            die();
+            $this->getTPL()->assign("error", $e->getMessage());
+            $this->getTPL()->display("error.tpl");
         }
     }
 
@@ -173,9 +171,8 @@ class CQuiz extends Controller {
             $this->showManageQuizzes();
         }catch (Exception $e){
             $db->pdo->rollBack();
-            //TODO : MANAGE ERROR MESSAGE
-            echo "Failed: " . $e->getMessage();
-            die();
+            $this->getTPL()->assign("error", $e->getMessage());
+            $this->getTPL()->display("error.tpl");
         }
 
 
@@ -193,9 +190,8 @@ class CQuiz extends Controller {
             $this->showModifyQuiz(Quiz::getById($question->idx_quiz));
         }catch (Exception $e){
             $db->pdo->rollBack();
-            //TODO : MANAGE ERROR MESSAGE
-            echo "Failed: " . $e->getMessage();
-            die();
+            $this->getTPL()->assign("error", $e->getMessage());
+            $this->getTPL()->display("error.tpl");
         }
     }
 

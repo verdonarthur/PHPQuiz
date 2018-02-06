@@ -4,13 +4,13 @@
     <div class="hero-body">
         <div class="container">
             <article class="card is-rounded">
-                <form class="card-content" method="post" action="login.php">
+                <form class="card-content" method="post" action="registration.php">
                     <h1 class="title">
-                        Quiz login
+                        Inscription
                     </h1>
                     <div class="field">
                         <p class="control has-icons-left">
-                            <input class="input" type="text" placeholder="Username" name="username">
+                            <input class="input" type="text" placeholder="Username" name="username" required>
                             <span class="icon is-small is-left">
                           <i class="fas fa-user"></i>
                         </span>
@@ -21,7 +21,7 @@
                         <span class="icon is-small is-left">
                             <i class="fa fa-lock"></i>
                         </span>
-                            <input class="input" type="password" placeholder="Password" name="password">
+                            <input class="input" type="password" placeholder="Password" name="password" required>
                         </p>
                     </div>
                     <div class="field">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <input type="submit" class="button is-primary is-medium is-fullwidth" value="Login">
+                            <input type="submit" class="button is-primary is-medium is-fullwidth" value="S'inscrire !">
                         </p>
                     </div>
                 </form>

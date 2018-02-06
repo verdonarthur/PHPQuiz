@@ -1,9 +1,12 @@
 {include file="header.tpl"}
-<section class="section mainSection">
-    <div class="container">
-        <h1 class="title">Liste des quizs </h1>
-        <hr>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Liste des quizs </h1>
+        </div>
     </div>
+</section>
+<section class="section mainSection">
     <div class="container">
         <form class="list_quizzes_form field is-horizontal">
             <div class="field-body">
@@ -36,22 +39,32 @@
                 <div class="column is-one-third"
                      data-category="{ldelim}{','|implode:$quiz->getAllCategoriesID()}{rdelim}"
                      data-name="{$quiz->name}">
-                    <div class="box ">
-                        {foreach from=$quiz->getAllCategoriesName() item=nameCategory}
-                            <span class="tag">{$nameCategory}</span>
-                        {/foreach}
-                        <hr>
-                        <p class="title">
-                            {$quiz->name}
-                        </p>
-                        <p class="subtitle">
-                            {$quiz->description}
-                        </p>
-                        <footer>
-                            <p class="">
-                                <span><a href="play_quiz.php?idQuiz={$quiz->id}">Play</a></span>
-                            </p>
-                        </footer>
+                    <div class="box has-text-centered">
+                        <div class="level">
+                            <div class="tags level-item">
+                                {foreach from=$quiz->getAllCategoriesName() item=nameCategory}
+                                    <span class="tag is-rounded is-info">{$nameCategory}</span>
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="level">
+                            <div class="level-item">
+                                <p class="title is-5">
+                                    {$quiz->name}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level">
+                            <div class="level-item">
+                                <p class="subtitle is-6">
+                                    {$quiz->description|truncate:100:"...":true}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level">
+                            <div class="level-item"><a href="play_quiz.php?idQuiz={$quiz->id}"
+                                                       class="button is-info is-outlined">Play</a></div>
+                        </div>
                     </div>
                 </div>
             {/foreach}

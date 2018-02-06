@@ -1,10 +1,12 @@
 {include file="header.tpl"}
-<section class="section mainSection">
-    <div class="container">
-        <h1 class="title">Modification de {$quiz->name}</h1>
-        <hr>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Modification de {$quiz->name}</h1>
+        </div>
     </div>
-
+</section>
+<section class="section mainSection">
     <form action="modify_quiz.php?idQuiz={$quiz->id}" method="post">
         <div class="container">
             <div class="field is-horizontal">
@@ -81,19 +83,22 @@
                     <div class="box field">
                         <div class="field-body">
                             <div class="field" style="width:20%">
-                                <input class="input" type="number" placeholder="1" name="questionOrder[]"></div>
+                                <input class="input" type="text" placeholder="1" value="1" name="questionOrder[]"
+                                       pattern="[0-9]{ldelim}1-3{rdelim}" required></div>
                             <div class="field">
                                 <input class="input" type="text" placeholder="Intitulé de la question"
-                                       name="questionTitled[]"></div>
+                                       name="questionTitled[]" required></div>
                         </div>
                         <hr>
                         <div class="field-body">
-                            <textarea class="textarea is-small" name="questionOption[]"
-                                      placeholder='{ldelim}"options":[]{rdelim}'></textarea>
+                            <textarea class="textarea is-small"
+                                      name="questionOption[]"
+                                      placeholder='{ldelim}"options":[]{rdelim}'
+                                      required>{ldelim}"options":[]{rdelim}</textarea>
                         </div>
                         <hr>
                         <div class="field-body">
-                            <input class="input" type="text" name="questionAnswer[]" placeholder="Réponse">
+                            <input class="input" type="text" name="questionAnswer[]" placeholder="Réponse" required>
                         </div>
                         <hr>
                         <div class="level level-right">
