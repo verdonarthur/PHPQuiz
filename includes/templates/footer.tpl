@@ -12,7 +12,7 @@
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <script src="js/bulmaBootstrap.js"></script>
 <script src="js/main.js"></script>
 {if strpos($smarty.server.SCRIPT_NAME,  "play_quiz.php") !== false}

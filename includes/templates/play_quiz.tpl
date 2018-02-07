@@ -11,25 +11,35 @@
         </div>
     </div>
 </section>
-<section class="mainSection">
+<section class="mainSection section">
     {foreach from=$quiz->getQuizQuestions() item=question name=foo}
-        <div class="section question" data-order="{$smarty.foreach.foo.iteration}" data-idquestion="{$question->id}"
+        <div class="container question" data-order="{$smarty.foreach.foo.iteration}"
+             data-idquestion="{$question->id}"
              data-answer="{$question->answer}">
-            <div class="container">
-                <h1 class="title">{$question->titled}</h1>
-                {$cquestion->displayOptionQuestion($question)}
-                <p id="answer{$question->id}"></p>
-            </div>
+            <h1 class="title">{$question->titled}</h1>
+            {$cquestion->displayOptionQuestion($question)}
+            <p id="answer{$question->id}"></p>
         </div>
     {/foreach}
+    <div class="container field is-grouped is-grouped-centered">
+        <div class="control">
+            <button class="button" id="btnLastQuestion" disabled>Précdente question</button>
+        </div>
+        <div class="control">
+            <button id="btnCorrect" class="button">Corriger</button>
+        </div>
 
-    <div class="level">
+        <div class="control">
+            <button id="btnNextQuestion" class="button">Prochaine question</button>
+        </div>
+    </div>
+
+    <div class="level section">
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Score</p>
                 <p class="title score">0</p>
             </div>
-
         </div>
         <div class="level-item has-text-centered">
             <div>
@@ -38,22 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="section level">
-        <div class="container">
-            <div class="level-left">
-                <p class="level-item">
-                    <button class="button" id="btnLastQuestion" disabled>Précdente question</button>
-                </p>
-            </div>
-            <div class="level-right">
-                <p class="level-item">
-                    <button id="btnCorrect" class="button">Corriger</button>
-                <p class="level-item">
-                    <button id="btnNextQuestion" class="button">Prochaine question</button>
-                </p>
-            </div>
-        </div>
-    </div>
+
 </section>
 
 <div class="modal" id="quizEnded">

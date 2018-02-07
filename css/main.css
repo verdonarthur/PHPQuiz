@@ -6,10 +6,11 @@ body{
 
 
 .mainSection{
-    min-height: 750px;
+    min-height: 100vh;
 }
 .question{
-    min-height: 500px;
+    min-height: 280px;
+    text-align: center;
 }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

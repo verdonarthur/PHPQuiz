@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="#">
+        <a class="navbar-item" href="index.php">
             <img src="img/logo.png" alt=""
                  width="auto" height="56">
         </a>

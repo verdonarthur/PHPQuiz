@@ -1,11 +1,12 @@
 {if $youtubeLink}
-    <div style=" overflow:hidden;    padding-bottom:56.25%;    position:relative;    height:0;">
-        <iframe style="left:0;    top:0;    height:100%;    width:100%;    position:absolute;" src="{$youtubeLink}"
+    <div style="margin-bottom:10px; overflow:hidden;padding-bottom:56.25%;    position:relative;    height:0;">
+        <iframe style="left:0; top:0; height:100%; width:100%;position:absolute;"
+                src="{$youtubeLink}"
                 frameborder="0" allow="autoplay; encrypted-media"
                 allowfullscreen></iframe>
     </div>
 {/if}
-<div class="field">
+<div class="field is-grouped is-grouped-centered">
 
     {if !empty($options)}
         {if $isMultiple}
